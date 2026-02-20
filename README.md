@@ -12,10 +12,10 @@ Library to read CAMT files. Currently only CAMT.052, CAMT.053 and CAMT.054 are s
 - [BREAKING] `EntryTransactionDetail->amountDetails` is no longer a Money object of the transaction amount but a new DTO with `transactionAmount` (Money) and `instructedAmount` (Money)
   ```php
     // before:
-    $amount = $entry->amountDetails->getAmount();
+    $amount = $entry->getAmountDetails()->getAmount();
     
     // now:
-    $amount = $entry->amountDetails->getTransactionAmount()->getAmount();
+    $amount = $entry->getAmountDetails()->getTransactionAmount()->getAmount();
     ```
 
 ### Supported Versions
