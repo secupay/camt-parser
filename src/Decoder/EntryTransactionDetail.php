@@ -353,10 +353,17 @@ abstract class EntryTransactionDetail
 
     public function addAmountDetails(DTO\EntryTransactionDetail $detail, SimpleXMLElement $xmlDetail, SimpleXMLElement $CdtDbtInd): void
     {
+        $amountDetails = new DTO\AmountDetails();
+
         if (isset($xmlDetail->AmtDtls, $xmlDetail->AmtDtls->TxAmt, $xmlDetail->AmtDtls->TxAmt->Amt)) {
-            $money = $this->moneyFactory->create($xmlDetail->AmtDtls->TxAmt->Amt, $CdtDbtInd);
-            $detail->setAmountDetails($money);
+            $amountDetails->setTransactionAmount($this->moneyFactory->create($xmlDetail->AmtDtls->TxAmt->Amt, $CdtDbtInd));
         }
+
+        if (isset($xmlDetail->AmtDtls, $xmlDetail->AmtDtls->InstdAmt, $xmlDetail->AmtDtls->InstdAmt->Amt)) {
+            $amountDetails->setInstructedAmount($this->moneyFactory->create($xmlDetail->AmtDtls->InstdAmt->Amt, $CdtDbtInd));
+        }
+
+        $detail->setAmountDetails($amountDetails);
     }
 
     public function addAmount(DTO\EntryTransactionDetail $detail, SimpleXMLElement $xmlDetail, SimpleXMLElement $CdtDbtInd): void

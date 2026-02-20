@@ -32,7 +32,7 @@ class EntryTransactionDetail
 
     private ?Charges $charges = null;
 
-    private ?Money $amountDetails = null;
+    private ?AmountDetails $amountDetails = null;
 
     private ?Money $amount = null;
 
@@ -152,12 +152,12 @@ class EntryTransactionDetail
         $this->charges = $charges;
     }
 
-    public function getAmountDetails(): ?Money
+    public function getAmountDetails(): ?AmountDetails
     {
         return $this->amountDetails;
     }
 
-    public function setAmountDetails(?Money $amountDetails): void
+    public function setAmountDetails(?AmountDetails $amountDetails): void
     {
         $this->amountDetails = $amountDetails;
     }
