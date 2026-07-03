@@ -14,7 +14,7 @@ class Recipient implements RelatedPartyTypeInterface
 
     private ?Identification $identification = null;
 
-    public function __construct(private ?string $name = null)
+    public function __construct(private ?string $name = null, private ?string $bic = null)
     {
     }
 
@@ -66,5 +66,15 @@ class Recipient implements RelatedPartyTypeInterface
     public function setIdentification(Identification $identification): void
     {
         $this->identification = $identification;
+    }
+
+    public function getBic(): ?string
+    {
+        return $this->bic;
+    }
+
+    public function setBic(?string $bic): void
+    {
+        $this->bic = $bic;
     }
 }

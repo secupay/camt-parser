@@ -10,7 +10,7 @@ class Creditor implements RelatedPartyTypeInterface
 
     private ?Identification $identification = null;
 
-    public function __construct(private ?string $name)
+    public function __construct(private ?string $name, private ?string $bic = null)
     {
     }
 
@@ -37,5 +37,15 @@ class Creditor implements RelatedPartyTypeInterface
     public function getIdentification(): ?Identification
     {
         return $this->identification;
+    }
+
+    public function getBic(): ?string
+    {
+        return $this->bic;
+    }
+
+    public function setBic(?string $bic): void
+    {
+        $this->bic = $bic;
     }
 }
