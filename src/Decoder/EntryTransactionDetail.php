@@ -124,7 +124,9 @@ abstract class EntryTransactionDetail
         $xmlPartyDetail = $xmlRelatedPartyType->Pty ?: $xmlRelatedPartyType->Agt?->FinInstnId ?: $xmlRelatedPartyType;
 
         $xmlRelatedPartyName = (isset($xmlPartyDetail->Nm)) ? (string) $xmlPartyDetail->Nm : null;
-        $xmlRelatedPartyBic = (isset($xmlPartyDetail->Agt)) ? (string) $this->getAgentBic($xmlPartyDetail->Agt) : null;
+        $xmlRelatedPartyBic = (isset($xmlRelatedPartyType->Agt))
+            ? (string) $this->getAgentBic($xmlRelatedPartyType->Agt)
+            : null;
         $relatedPartyType = new $relatedPartyTypeClass($xmlRelatedPartyName, $xmlRelatedPartyBic);
 
         if (isset($xmlPartyDetail->PstlAdr)) {

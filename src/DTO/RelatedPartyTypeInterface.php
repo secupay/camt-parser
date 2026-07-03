@@ -9,7 +9,7 @@ namespace Genkgo\Camt\DTO;
  */
 interface RelatedPartyTypeInterface
 {
-    public function __construct(?string $name);
+    public function __construct(?string $name, ?string $bic);
 
     public function setAddress(Address $address): void;
 
