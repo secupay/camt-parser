@@ -114,13 +114,18 @@ abstract class EntryTransactionDetail
     /**
      * @param class-string<RelatedPartyTypeInterface> $relatedPartyTypeClass
      */
-    protected function addRelatedParty(DTO\EntryTransactionDetail $detail, SimpleXMLElement $xmlRelatedPartyType, string $relatedPartyTypeClass, ?SimpleXMLElement $xmlRelatedPartyTypeAccount = null): void
-    {
+    protected function addRelatedParty(
+        DTO\EntryTransactionDetail $detail,
+        SimpleXMLElement $xmlRelatedPartyType,
+        string $relatedPartyTypeClass,
+        ?SimpleXMLElement $xmlRelatedPartyTypeAccount = null
+    ): void {
         // CAMT v08 uses substructure, so we check for its existence or fallback to the element itself to keep compatibility with CAMT v04
         $xmlPartyDetail = $xmlRelatedPartyType->Pty ?: $xmlRelatedPartyType->Agt?->FinInstnId ?: $xmlRelatedPartyType;
 
         $xmlRelatedPartyName = (isset($xmlPartyDetail->Nm)) ? (string) $xmlPartyDetail->Nm : null;
-        $relatedPartyType = new $relatedPartyTypeClass($xmlRelatedPartyName);
+        $xmlRelatedPartyBic = (isset($xmlPartyDetail->Agt)) ? (string) $this->getAgentBic($xmlPartyDetail->Agt) : null;
+        $relatedPartyType = new $relatedPartyTypeClass($xmlRelatedPartyName, $xmlRelatedPartyBic);
 
         if (isset($xmlPartyDetail->PstlAdr)) {
             $relatedPartyType->setAddress(DTOFactory\Address::createFromXml($xmlPartyDetail->PstlAdr));

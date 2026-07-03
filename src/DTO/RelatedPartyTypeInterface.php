@@ -20,4 +20,8 @@ interface RelatedPartyTypeInterface
     public function getIdentification(): ?Identification;
 
     public function setIdentification(Identification $identification): void;
+
+    public function getBic(): ?string;
+
+    public function setBic(?string $bic): void;
 }
