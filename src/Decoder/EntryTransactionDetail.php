@@ -388,6 +388,6 @@ abstract class EntryTransactionDetail
      */
     protected function getAgentBic(SimpleXMLElement $xmlAgent): ?SimpleXMLElement
     {
-        return $xmlAgent->FinInstnId->BIC ?? $xmlAgent->FinInstnId->BICFI;
+        return $xmlAgent->FinInstnId->BIC ?? $xmlAgent->FinInstnId->BICFI ?? $xmlAgent->FinInstnId->ClrSysMmbId->MmbId;
     }
 }
