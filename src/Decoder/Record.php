@@ -251,6 +251,10 @@ class Record
                 $entry->setCharges($charges);
             }
 
+            if (isset($xmlEntry->AmtDtls)) {
+                $this->addAmountDetails($entry, $xmlEntry->AmtDtls, $xmlEntry->CdtDbtInd);
+            }
+
             $this->entryDecoder->addTransactionDetails($entry, $xmlEntry);
 
             $record->addEntry($entry);
@@ -267,5 +271,20 @@ class Record
             ?: (string) $xmlStatus?->Prtry
                 ?: (string) $xmlStatus
                     ?: null;
+    }
+
+    public function addAmountDetails(DTO\Entry $entry, SimpleXMLElement $amtDtls, SimpleXMLElement $ddtDbtInd): void
+    {
+        $amountDetails = new DTO\AmountDetails();
+
+        if (isset($amtDtls->AmtDtls, $amtDtls->AmtDtls->TxAmt, $amtDtls->AmtDtls->TxAmt->Amt)) {
+            $amountDetails->setTransactionAmount($this->moneyFactory->create($amtDtls->AmtDtls->TxAmt->Amt, $ddtDbtInd));
+        }
+
+        if (isset($amtDtls->AmtDtls, $amtDtls->AmtDtls->InstdAmt, $amtDtls->AmtDtls->InstdAmt->Amt)) {
+            $amountDetails->setInstructedAmount($this->moneyFactory->create($amtDtls->AmtDtls->InstdAmt->Amt, $ddtDbtInd));
+        }
+
+        $entry->setAmountDetails($amountDetails);
     }
 }

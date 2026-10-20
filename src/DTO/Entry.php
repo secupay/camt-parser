@@ -44,6 +44,8 @@ class Entry
 
     private ?BatchInformation $btch = null;
 
+    private ?AmountDetails $amountDetails = null;
+
     public function __construct(Record $record, int $index, Money $amount)
     {
         $this->record = $record;
@@ -215,5 +217,15 @@ class Entry
     public function setBatch(?BatchInformation $batch): void
     {
         $this->btch = $batch;
+    }
+
+    public function getAmountDetails(): ?AmountDetails
+    {
+        return $this->amountDetails;
+    }
+
+    public function setAmountDetails(?AmountDetails $amountDetails): void
+    {
+        $this->amountDetails = $amountDetails;
     }
 }
