@@ -277,12 +277,12 @@ class Record
     {
         $amountDetails = new DTO\AmountDetails();
 
-        if (isset($amtDtls->AmtDtls, $amtDtls->AmtDtls->TxAmt, $amtDtls->AmtDtls->TxAmt->Amt)) {
-            $amountDetails->setTransactionAmount($this->moneyFactory->create($amtDtls->AmtDtls->TxAmt->Amt, $ddtDbtInd));
+        if (isset($amtDtls->TxAmt, $amtDtls->TxAmt->Amt)) {
+            $amountDetails->setTransactionAmount($this->moneyFactory->create($amtDtls->TxAmt->Amt, $ddtDbtInd));
         }
 
-        if (isset($amtDtls->AmtDtls, $amtDtls->AmtDtls->InstdAmt, $amtDtls->AmtDtls->InstdAmt->Amt)) {
-            $amountDetails->setInstructedAmount($this->moneyFactory->create($amtDtls->AmtDtls->InstdAmt->Amt, $ddtDbtInd));
+        if (isset($amtDtls->InstdAmt, $amtDtls->InstdAmt->Amt)) {
+            $amountDetails->setInstructedAmount($this->moneyFactory->create($amtDtls->InstdAmt->Amt, $ddtDbtInd));
         }
 
         $entry->setAmountDetails($amountDetails);
